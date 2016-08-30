@@ -11,8 +11,8 @@ import java.util.Set;
  * block's output call {@link #removeReceivingCable(Cable)} with the specific {@link Cable} as
  * the parameter.
  * <P>
- * Once the input signals have been set a signal through the block can be simulated by calling 
- * {@link #calculateNextStep()}.
+ * Once the input cables have been set a signal through the block can be simulated by calling 
+ * {@link #simulateNextCycle()}.
  * 
  * @author David Strömner
  */
@@ -78,13 +78,15 @@ public class TwoInputBlock {
 	}
 	
 	/**
-	 * Calculate the output signal with the current input signals to the block.
-	 * 
-	 * @return Current value of the output.
+	 * Update the output with the current input for this block. After updating all
+	 * cables connected to this output gets updated.
 	 */
-	public int calculateNextStep(){
+	public void simulateNextCycle(){
 		output = op.apply(inputOne.readSignal(), inputTwo.readSignal());
-		return output;
+
+		for(Cable e: recivingCables){
+			e.writeSignal(output);
+		}
 	}
 	
 	/**
