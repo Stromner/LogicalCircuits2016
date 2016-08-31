@@ -6,12 +6,14 @@ package data;
  * @author David Strömner
  */
 
-public class Cable {
+public class Cable implements java.io.Serializable{
+	private static final long serialVersionUID = -7789850143371996054L;
 	private int outSignal;
 	private final int id;
 	
-	public Cable(){
+	public Cable(int signal){
 		outSignal = 0;
+		writeSignal(signal);
 		id = IDGenerator.getId();
 	};
 	

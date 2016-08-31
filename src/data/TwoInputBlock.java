@@ -1,15 +1,12 @@
 package data;
 
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * Class containing the basic building blocks for logical circuits (AND, OR, XOR, NOT). The
  * input signals to the block can be set separately through {@link #setInputSignals(Cable, 
- * Cable)} if none exist when creating the block. Other blocks can be connected to this block
- * through the {@link #addReceivingCable(Cable)} method, to disconnect a cable from this
- * block's output call {@link #removeReceivingCable(Cable)} with the specific {@link Cable} as
- * the parameter.
+ * Cable)} if none exist when creating the block. Other blocks can be connected to this block by
+ * adding the cable that's returned from {@link #getOutput()} to one of its input.
  * <P>
  * Once the input cables have been set a signal through the block can be simulated by calling 
  * {@link #simulateNextCycle()}.
@@ -17,10 +14,9 @@ import java.util.Set;
  * @author David Strömner
  */
 
-public class TwoInputBlock {
-	private int output;
-	private Cable inputOne, inputTwo;
-	private Set<Cable> recivingCables;
+public class TwoInputBlock implements java.io.Serializable{
+	private static final long serialVersionUID = 8227115129599814838L;
+	private Cable inputOne, inputTwo, output;
 	private Operations op;
 	private Boolean startingBlock;
 	private final int id;
@@ -35,8 +31,7 @@ public class TwoInputBlock {
 			System.out.println("WARNING: x2 is unconnected in a NOT block");
 		}
 		
-		output = 0;
-		recivingCables = new HashSet<Cable>();
+		output = new Cable(0);
 		this.op = op;
 		this.startingBlock = startingBlock;
 		id = IDGenerator.getId();
@@ -54,10 +49,9 @@ public class TwoInputBlock {
 			System.out.println("WARNING: x2 is unconnected in a NOT block");
 		}
 		
-		output = 0;
+		output = new Cable(0);
 		this.inputOne = inputOne;
 		this.inputTwo = inputTwo;
-		recivingCables = new HashSet<Cable>();
 		this.op = op;
 		this.startingBlock = startingBlock;
 		id = IDGenerator.getId();
@@ -78,56 +72,30 @@ public class TwoInputBlock {
 	}
 	
 	/**
-	 * Update the output with the current input for this block. After updating all
-	 * cables connected to this output gets updated.
+	 * Update the output with the current input for this block.
 	 */
-	public void simulateNextCycle(){
-		output = op.apply(inputOne.readSignal(), inputTwo.readSignal());
-
-		for(Cable e: recivingCables){
-			e.writeSignal(output);
-		}
+	public int simulateNextCycle(){
+		output.writeSignal(op.apply(inputOne.readSignal(), inputTwo.readSignal()));
+		
+		return output.readSignal();
 	}
 	
-	/**
-	 * @return The signal for the output on this block.
-	 */
-	public int getOutput(){
+	public Cable getOutput(){
 		return output;
 	}
 	
-	/**
-	 * Tries to link a new cable from this blocks output.
-	 * @param cable to be added to the output.
-	 * @return true if the cable could be added, false otherwise.
-	 */
-	public boolean addReceivingCable(Cable cable){
-		if(recivingCables.contains(cable)){
-			System.out.println("WARNING: Cable already exists in the block " + id + '.');
-			return false;
-		}
-		recivingCables.add(cable);
-		return true;
+	public Cable getInputOne(){
+		return inputOne;
 	}
 	
-	/**
-	 * Tries to remove a cable from this blocks output.
-	 * @param cable to be removed from the output.
-	 * @return true if the cable could be removed, false otherwise.
-	 */
-	public boolean removeReceivingCable(Cable cable){
-		if(recivingCables.contains(cable)){
-			recivingCables.remove(cable);
-			return true;
-		}
-		System.out.println("WARNING: Cable " + cable.getId() + " already exists in the block " + id + '.');
-		return false;
+	public Cable getInputTwo(){
+		return inputTwo;
 	}
 	
 	@Override
 	public int hashCode(){
 		int result = 1;
-		result = 37*result+output;
+		result = 37*result+output.readSignal();
 		result = 37*result+(inputOne==null ? 0:inputOne.hashCode());
 		result = 37*result+(inputTwo==null ? 0:inputOne.hashCode());
 		result = 37*result+(startingBlock ? 0:1);
@@ -152,7 +120,7 @@ public class TwoInputBlock {
 		
 		// Compare fields
 		TwoInputBlock tib = (TwoInputBlock) o;
-		return output == tib.output && inputOne.hashCode() == tib.inputOne.hashCode() && 
+		return output.readSignal() == tib.output.readSignal() && inputOne.hashCode() == tib.inputOne.hashCode() && 
 				inputTwo.hashCode() == tib.inputTwo.hashCode() && 
 				startingBlock == tib.startingBlock && id == tib.id;
 	}
