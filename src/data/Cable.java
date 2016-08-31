@@ -12,7 +12,6 @@ public class Cable implements java.io.Serializable{
 	private final int id;
 	
 	public Cable(int signal){
-		outSignal = 0;
 		writeSignal(signal);
 		id = IDGenerator.getId();
 	};

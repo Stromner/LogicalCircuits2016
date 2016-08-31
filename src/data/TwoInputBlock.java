@@ -92,6 +92,10 @@ public class TwoInputBlock implements java.io.Serializable{
 		return inputTwo;
 	}
 	
+	public boolean isStartingBlock(){
+		return startingBlock;
+	}
+	
 	@Override
 	public int hashCode(){
 		int result = 1;
