@@ -79,7 +79,7 @@ public class Simulation {
 	}
 	
 	/**
-	 * Simulate a signal through the system for an eternity
+	 * Simulate a signal through the system for an eternity.
 	 * @param blocks list of all blocks contained in this system.
 	 */
 	private void simulate(List<TwoInputBlock> blocks){
@@ -95,10 +95,10 @@ public class Simulation {
 			for(TwoInputBlock block: currentCycle){
 				System.out.print(block.simulateNextCycle());
 				// Find next cycle of blocks
-				// Test the input of all blocks if the input shares a cable with
-				// the output of any block in the currentCycle list then add this block
-				// to nextCycle.
 				for(TwoInputBlock org: blocks){
+					// Test the input of all blocks, if the input shares a cable with
+					// the output of any block in the currentCycle list then add this block
+					// to nextCycle list.
 					if( org.getInputOne().equals(block.getOutput()) || org.getInputTwo().equals(block.getOutput()) ){
 						if(!nextCycle.contains(org)){
 							nextCycle.add(org);
