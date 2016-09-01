@@ -11,11 +11,11 @@ import javax.swing.JFrame;
  * @author David Strömner
  */
 
-public class DesignView {
+public class BasicWindow {
 	private JFrame frame;
 	private Menu menu;
 	
-	public DesignView(){
+	public BasicWindow(){
 		frame = new JFrame("Logical Circuits 2016");
 		menu = new Menu(frame);
 		

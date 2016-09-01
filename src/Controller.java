@@ -1,4 +1,4 @@
-import graphical.ui.DesignView;
+import graphical.ui.BasicWindow;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -15,7 +15,7 @@ import data.TwoInputBlock;
 
 public class Controller {
 	public static void main(String[] args) {
-		DesignView canvas = new DesignView();
+		BasicWindow canvas = new BasicWindow();
 		
 		// Open the schematic for the file received in args[0]
 		// and simulate it.
