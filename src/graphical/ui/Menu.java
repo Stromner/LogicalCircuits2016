@@ -2,8 +2,6 @@ package graphical.ui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyEvent;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
 import javax.swing.JMenu;
@@ -11,30 +9,30 @@ import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
 import javax.swing.KeyStroke;
 
-public class DesignWindow {
-	private JFrame frame;
+/**
+ * Menu that all the different views uses.
+ * 
+ * @author David Strömner
+ */
+
+public class Menu {
 	private JMenuBar menuBar;
 	private JMenu fileMenu, simulationMenu;
 	private JMenuItem newMenuItem, saveMenuItem, importBlockMenuItem, exitMenuItem, startMenuItem, stepMenuItem, stopMenuItem;
 	
-	public DesignWindow(){
-		frame = new JFrame("Logical Circuits 2016");
-		createMenu();
-		
-		frame.setSize(800,800);
-		frame.setVisible(true);
-		// Close program upon exit from window
-		frame.addWindowListener(new WindowAdapter() {
-	         public void windowClosing(WindowEvent windowEvent){
-		        System.exit(0);
-	         }        
-	      });
-	}
-	
-	private void createMenu(){
+	public Menu(JFrame frame){
 		// Create the menu bar where all menus goes.
 		menuBar = new JMenuBar();
 		
+		// Create the menues
+		createFileMenu();
+		createSimulationMenu();
+		
+		// Add to frame
+		frame.setJMenuBar(menuBar);
+	}
+	
+	private void createFileMenu(){
 		// File menu
 		fileMenu = new JMenu("File");
 		menuBar.add(fileMenu);
@@ -49,7 +47,9 @@ public class DesignWindow {
 		fileMenu.add(saveMenuItem);
 		fileMenu.add(importBlockMenuItem);
 		fileMenu.add(exitMenuItem);
-		
+	}
+	
+	private void createSimulationMenu(){
 		// Simulation menu
 		simulationMenu = new JMenu("Simulation");
 		menuBar.add(simulationMenu);
@@ -62,7 +62,5 @@ public class DesignWindow {
 		simulationMenu.add(startMenuItem);
 		simulationMenu.add(stepMenuItem);
 		simulationMenu.add(stopMenuItem);
-		
-		frame.setJMenuBar(menuBar);
 	}
 }

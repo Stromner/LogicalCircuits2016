@@ -1,4 +1,5 @@
 package data;
+
 /**
  * Generate unique IDs for the classes {@link TwoInputBlock} and {@link Cable}.
  * 

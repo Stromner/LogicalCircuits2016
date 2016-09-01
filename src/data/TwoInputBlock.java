@@ -1,7 +1,5 @@
 package data;
 
-
-
 /**
  * Class containing the basic building blocks for logical circuits (AND, OR, XOR, NOT). The
  * input signals to the block can be set separately through {@link #setInputSignals(Cable, 
@@ -73,6 +71,7 @@ public class TwoInputBlock implements java.io.Serializable{
 	
 	/**
 	 * Update the output with the current input for this block.
+	 * @return current output of the block.
 	 */
 	public int simulateNextCycle(){
 		output.writeSignal(op.apply(inputOne.readSignal(), inputTwo.readSignal()));

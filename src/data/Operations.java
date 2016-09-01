@@ -1,4 +1,5 @@
 package data;
+
 /**
  * Enum for all the basic boolean operations.
  * Example on usage: Operations.AND.apply(1,1);
