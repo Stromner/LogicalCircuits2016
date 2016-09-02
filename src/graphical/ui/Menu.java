@@ -18,7 +18,7 @@ import javax.swing.KeyStroke;
 public class Menu {
 	private JMenuBar menuBar;
 	private JMenu fileMenu, simulationMenu;
-	private JMenuItem newMenuItem, saveMenuItem, importBlockMenuItem, exitMenuItem, startMenuItem, stepMenuItem, stopMenuItem;
+	private JMenuItem newMenuItem, saveMenuItem, openMenuItem, importBlockMenuItem, exitMenuItem, startMenuItem, stepMenuItem, stopMenuItem;
 	
 	public Menu(JFrame frame){
 		// Create the menu bar where all menus goes.
@@ -39,12 +39,15 @@ public class Menu {
 		// Create menu objects
 		newMenuItem = new JMenuItem("New");
 		saveMenuItem = new JMenuItem("Save");
+		openMenuItem = new JMenuItem("Open");
 		importBlockMenuItem = new JMenuItem("Import .block schematic");
 		exitMenuItem = new JMenuItem("Exit");
 		newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
 		saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
+		openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
 		fileMenu.add(newMenuItem);
 		fileMenu.add(saveMenuItem);
+		fileMenu.add(openMenuItem);
 		fileMenu.add(importBlockMenuItem);
 		fileMenu.add(exitMenuItem);
 	}
@@ -54,9 +57,9 @@ public class Menu {
 		simulationMenu = new JMenu("Simulation");
 		menuBar.add(simulationMenu);
 		// Create menu objects
-		startMenuItem = new JMenuItem("Start simulation");
+		startMenuItem = new JMenuItem("Start");
 		stepMenuItem = new JMenuItem("Step through");
-		stopMenuItem = new JMenuItem("Stop simulation");
+		stopMenuItem = new JMenuItem("Stop");
 		startMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F5, 0));
 		stepMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, 0));
 		simulationMenu.add(startMenuItem);
