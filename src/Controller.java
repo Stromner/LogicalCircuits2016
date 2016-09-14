@@ -1,12 +1,13 @@
-import graphical.ui.BasicWindow;
-
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.List;
 
+import javax.swing.UIManager;
+
 import data.Component;
 import data.Simulation;
 import data.TwoInputBlock;
+import graphical.ui.BasicWindow;
 
 /**
  * 
@@ -15,10 +16,14 @@ import data.TwoInputBlock;
 
 public class Controller {
 	public static void main(String[] args) {
-		//Schedule a job for the event-dispatching thread:
-        //creating and showing this application's GUI.
+		// Run the UI in its own thread
         javax.swing.SwingUtilities.invokeLater(new Runnable() {
             public void run() {
+            	try {
+        			UIManager.setLookAndFeel( UIManager.getSystemLookAndFeelClassName() );
+        		} catch( Exception e ) {
+        			e.printStackTrace();
+        		}
             	BasicWindow canvas = new BasicWindow();
             }
         });

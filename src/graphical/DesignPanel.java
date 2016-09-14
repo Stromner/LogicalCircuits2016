@@ -1,14 +1,15 @@
 package graphical;
 
-import graphical.ui.Toolbox;
-
 import java.awt.BorderLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
+
+import graphical.ui.Toolbox;
 
 /**
  * Panel containing the components to create new .block components.
@@ -19,35 +20,22 @@ import javax.swing.JTabbedPane;
 public class DesignPanel extends JPanel{
 	private static final long serialVersionUID = 2377418960000552338L;
 	private JPanel toolbox, canvas;
+	private JSplitPane splitPane;
 
 	public DesignPanel(){
 		super();
 		this.setLayout(new GridBagLayout());
-		createToolbar();
+		createToolbox();
 		createEmptyCanvas();
+		createSplitPane();
 	}
 	
-	private void createToolbar(){
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 0.1;
-		c.weighty = 1;
-		c.fill = GridBagConstraints.BOTH;
-		
-		toolbox = new Toolbox(c);
-		toolbox.setBorder((BorderFactory.createTitledBorder("Toolbar")));
-		this.add(toolbox, c);
+	private void createToolbox(){
+		toolbox = new Toolbox();
+		toolbox.setBorder((BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Toolbox")));
 	}
 	
-	private void createEmptyCanvas(){
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 1;
-		c.gridy = 0;
-		c.weightx = 1;
-		c.weighty = 1;
-		c.fill = GridBagConstraints.BOTH;
-		
+	private void createEmptyCanvas(){	
 		canvas = new JPanel();
 		canvas.setLayout(new BorderLayout());
 		JTabbedPane tabBar = new JTabbedPane();
@@ -56,6 +44,17 @@ public class DesignPanel extends JPanel{
 		tabBar.addTab("Untitled", null, panel);
 		
 		canvas.add(tabBar, BorderLayout.CENTER);
-		this.add(canvas, c);
+	}
+	
+	private void createSplitPane(){
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, toolbox, canvas);
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.gridx = 1;
+		c.gridy = 0;
+		c.weightx = 1;
+		c.weighty = 1;
+		c.fill = GridBagConstraints.BOTH;
+		this.add(splitPane,c);
 	}
 }

@@ -1,11 +1,11 @@
 package graphical.ui;
 
-import graphical.DesignPanel;
-
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 
 import javax.swing.JFrame;
+
+import graphical.DesignPanel;
 
 /**
  * View for creating new components in. 
