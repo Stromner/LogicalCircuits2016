@@ -1,15 +1,17 @@
 package graphical;
 
+import graphical.ui.Toolbox;
+
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
 import javax.swing.JTabbedPane;
-
-import graphical.ui.Toolbox;
 
 /**
  * Panel containing the components to create new .block components.
@@ -21,10 +23,12 @@ public class DesignPanel extends JPanel{
 	private static final long serialVersionUID = 2377418960000552338L;
 	private JPanel toolbox, canvas;
 	private JSplitPane splitPane;
+	private JScrollPane scrollingToolbox;
 
 	public DesignPanel(){
 		super();
 		this.setLayout(new GridBagLayout());
+		
 		createToolbox();
 		createEmptyCanvas();
 		createSplitPane();
@@ -33,6 +37,9 @@ public class DesignPanel extends JPanel{
 	private void createToolbox(){
 		toolbox = new Toolbox();
 		toolbox.setBorder((BorderFactory.createTitledBorder(BorderFactory.createEmptyBorder(), "Toolbox")));
+		
+		scrollingToolbox = new JScrollPane(toolbox);
+		scrollingToolbox.setMinimumSize(new Dimension(200,getPreferredSize().height));
 	}
 	
 	private void createEmptyCanvas(){	
@@ -47,7 +54,7 @@ public class DesignPanel extends JPanel{
 	}
 	
 	private void createSplitPane(){
-		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, toolbox, canvas);
+		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollingToolbox, canvas);
 		splitPane.setDividerSize(5);
 		splitPane.setContinuousLayout(true);
 		

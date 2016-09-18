@@ -1,6 +1,8 @@
 package graphical.ui;
 
-import javax.swing.JLabel;
+import graphical.WrapLayout;
+
+import javax.swing.JButton;
 import javax.swing.JPanel;
 
 /**
@@ -12,12 +14,11 @@ import javax.swing.JPanel;
 
 public class Toolbox extends JPanel {
 	private static final long serialVersionUID = -271110687499847217L;
-	private JLabel toggleButton;
 	
 	public Toolbox(){
 		super();
+		setLayout(new WrapLayout());
 		
-		toggleButton = new JLabel("TEMP LABEL");
-		this.add(toggleButton);
+		// Add components
 	}
 }
