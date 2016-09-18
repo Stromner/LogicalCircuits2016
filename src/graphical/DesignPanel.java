@@ -48,6 +48,8 @@ public class DesignPanel extends JPanel{
 	
 	private void createSplitPane(){
 		splitPane = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, toolbox, canvas);
+		splitPane.setDividerSize(5);
+		splitPane.setContinuousLayout(true);
 		
 		GridBagConstraints c = new GridBagConstraints();
 		c.gridx = 1;
